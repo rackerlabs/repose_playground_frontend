@@ -27,6 +27,20 @@ angular.module('reposePlaygroundApp')
           });
         }
 
+        scope.monitor = function(repose) {
+          $log.info('view monitor: ', repose);
+          $modal.open({
+            templateUrl: '/views/monitor_modal.html',
+            backdrop: 'static',
+            controller: 'MonitorModalInstanceCtrl',
+            resolve: {
+              repose: function() {
+                return repose;
+              }
+            }
+          });
+        }
+
         scope.stop = function(repose){
           $log.info('stop called: ', repose);
           ReposeService.stopInstance(repose.id)

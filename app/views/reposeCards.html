@@ -2,10 +2,10 @@
   <div class="repose-card add-new" data-ui-sref="create">
     Add Repose Instance&hellip;
   </div>
-  <div class="repose-card" data-ng-repeat="repose in reposes track by repose.repose_name">
+  <div class="repose-card" data-ng-repeat="repose in reposes track by repose.name">
     <div class="card-header">
       <div class="card-subtitle">Repose Instance</div>
-      <h3 class="card-title">{{ repose.repose_name }}</h3>
+      <h3 class="card-title">{{ repose.name }}</h3>
     </div>
     <div class="card-body">
       <div class="details-trio">
@@ -15,22 +15,76 @@
         </div>
         <div class="repose-status">
           <div class="details-header">Status</div>
-          <span class="rs-status rs-status-ok" data-ng-show="repose.status=='Running'">{{ repose.status }}</span>
-          <span class="rs-status rs-status-error" data-ng-show="repose.status!=='Running'">{{ repose.status }}</span>
+          <span class="rs-status rs-status-ok" data-ng-show="repose.containerStatus=='STARTED'">{{ repose.containerStatus }}</span>
+          <span class="rs-status rs-status-error" data-ng-show="repose.containerStatus!=='STARTED'">{{ repose.containerStatus }}</span>
           <span class="rs-help-block">({{ repose.message }})</span>
+        </div>
+        <div class="repose-stats" data-ng-if="repose.containerStats">
+          <div class="details-header" data-ng-click="show_monitoring=!show_monitoring">Monitoring</div>
+          <div class="rs-embedded-list-table-wrapper rs-embedded-small"
+               data-ng-show="show_monitoring">
+            <table class="rs-list-table rs-embedded-list-table stats-table">
+              <thead>
+                <tr>
+                  <th class="dialog-td" ng-if="repose.containerStats.cpuStats">CPU</th>
+                  <th class="dialog-td" ng-if="repose.containerStats.memoryStats">Memory</th>
+                  <th class="dialog-td" ng-if="repose.containerStats.network">Network</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="dialog-td" ng-if="repose.containerStats.cpuStats">
+                    <div ng-if="repose.containerStats.cpuStats.cpuUsage">
+                      <label>Cpu Usage:</label>
+                      <div data-ng-repeat="(key, metric) in repose.containerStats.cpuStats.cpuUsage">
+                        <label style="display:inline-block">{{key}}</label>
+                        <span>{{metric}}</span>
+                      </div>
+                    </div>
+                    <label style="display:inline-block">System Usage</label>
+                    <span>{{ repose.containerStats.cpuStats.systemUsage }}</span>
+                  </td>
+                  <td class="dialog-td" ng-if="repose.containerStats.memoryStats">
+                    <div data-ng-repeat="(key, metric) in repose.containerStats.memoryStats">
+                      <label style="display:inline-block">{{key}}</label>
+                      <span>{{metric}}</span>
+                    </div>
+                  </td>
+                  <td class="dialog-td" ng-if="repose.containerStats.network">
+                    <div data-ng-repeat="(key, metric) in repose.containerStats.network">
+                      <label style="display:inline-block">{{key}}</label>
+                      <span>{{metric}}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+<!--
+          <div class="rs-control-group" data-ng-repeat="(key, metrics) in repose.containerStats"
+               data-ng-show="show_monitoring">
+            <label class="rs-control-label">{{key}}</label>
+            <div class="rs-controls">
+              <div  data-ng-repeat="(metric_key, metric_values) in metrics">
+                <label style="display:inline-block">{{metric_key}}</label>
+                <span>{{metric_values}}</span>
+              </div>
+            </div>
+          </div>
+          -->
         </div>
       </div>
     </div>
     <div class="card-footer rs-btn-group">
       <div class="button-wrap">
-        <button class="rs-btn btn-footer rs-btn-primary" data-ng-class="{'disabled': repose.status!=='Running'}" data-ng-click="viewConfiguration(repose)">Configuration</button>
-        <button class="rs-btn btn-footer rs-btn-login" data-ng-show="repose.status=='Running'" data-ng-click="stop(repose)">Stop</button>
-        <button class="rs-btn btn-footer rs-btn-login" data-ng-show="repose.status!=='Running'" data-ng-click="start(repose)">Start</button>
-        <button class="rs-btn btn-footer" data-ng-class="{'disabled': repose.status!=='Running'}" data-ui-sref="test({repose_id: repose.id})">Test</button>
+        <button class="rs-btn btn-footer rs-btn-primary" data-ng-class="{'disabled': repose.containerStatus!=='STARTED'}" data-ng-click="viewConfiguration(repose)">Configuration</button>
+        <button class="rs-btn btn-footer rs-btn-login" data-ng-show="repose.containerStatus=='STARTED'" data-ng-click="stop(repose)">Stop</button>
+        <button class="rs-btn btn-footer rs-btn-login" data-ng-show="repose.containerStatus!=='STARTED'" data-ng-click="start(repose)">Start</button>
+        <button class="rs-btn btn-footer" data-ng-class="{'disabled': repose.containerStatus!=='STARTED'}" data-ui-sref="test({repose_id: repose.id})">Test</button>
         <!-- TODO: add ui route for benchmark -->
-        <button class="rs-btn btn-footer" data-ng-class="{'disabled': repose.status!=='Running'}" data-ng-click="benchmark()">Benchmark</button>
+        <button class="rs-btn btn-footer" data-ng-class="{'disabled': repose.containerStatus!=='STARTED'}" data-ng-click="benchmark()">Benchmark</button>
         <!-- TODO: add ui route for monitor -->
-        <button class="rs-btn btn-footer" data-ng-class="{'disabled': repose.status!=='Running'}" data-ng-click="monitor()">Monitor</button>
+        <button class="rs-btn btn-footer" data-ng-class="{'disabled': repose.containerStatus!=='STARTED'}" data-ng-click="monitor(repose)">Monitor</button>
       </div>
       </button>
     </div>

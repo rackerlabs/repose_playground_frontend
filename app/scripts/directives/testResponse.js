@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('testResponse', function ($log, ReposeService) {
+  .directive('testResponse', function ($log) {
     return {
       templateUrl: 'views/testResponse.html',
       restrict: 'E',

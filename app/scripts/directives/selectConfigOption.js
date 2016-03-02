@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('selectConfigOption', function ($log, ReposeService) {
+  .directive('selectConfigOption', function ($log) {
     return {
       templateUrl: 'views/selectConfigOption.html',
       restrict: 'E',

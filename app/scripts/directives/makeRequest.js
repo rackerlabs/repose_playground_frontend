@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('makeRequest', function ($log, ReposeService) {
+  .directive('makeRequest', function ($log) {
     return {
       templateUrl: 'views/makeRequest.html',
       restrict: 'E',

@@ -8,7 +8,7 @@
  * Controller of the reposePlaygroundApp
  */
 angular.module('reposePlaygroundApp')
-  .controller('TestCtrl', function ($scope, $log, $modal, $filter, $stateParams, ReposeService) {
+  .controller('TestCtrl', function ($scope, $log, $modal, $filter, $stateParams, TestService) {
     $log.info('In Test Ctrl', $scope, $stateParams);
     $scope.id = $stateParams.repose_id;
     $scope.responses = [];
@@ -42,7 +42,7 @@ angular.module('reposePlaygroundApp')
       });
       $scope.request.body = $("#testReposeForm").find(':input[name="body"]').val();
 
-      ReposeService.makeRequest($scope.id, $scope.request)
+      TestService.makeRequest($scope.id, $scope.request)
       .then(function(result){
         $scope.responses.push(result)
         $scope.requestLoading = false;

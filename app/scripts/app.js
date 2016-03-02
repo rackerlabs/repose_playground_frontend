@@ -24,7 +24,8 @@ angular
     'ui.bootstrap-slider',
     'prettyXml',
     'ngFileSaver',
-    'ngFileUpload'
+    'ngFileUpload',
+    'chart.js'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $logProvider) {
     var $log =  angular.injector(['ng']).get('$log');
