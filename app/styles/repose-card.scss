@@ -145,6 +145,9 @@
 .modal-dialog td.dialog-td ul{
   list-style-type: none;
 }
+.stats-table td.dialog-td {
+  max-width: 100px !important; }
+
 .rs-list-table, table {
   word-wrap: break-word;
 }

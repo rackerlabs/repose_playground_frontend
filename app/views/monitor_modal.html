@@ -1,0 +1,18 @@
+<div class="modal-header">Monitoring data</div>
+<div class="modal-body">
+  <h3 class="modal-title">CPU Stats</h3>
+  <canvas id="cpuStats" class="chart chart-line" chart-data="cpuStatsData"
+          chart-labels="cpuStatsLabels" chart-legend="true" chart-series="cpuStatsSeries" >
+  </canvas>
+  <h3 class="modal-title">Memory Stats</h3>
+  <canvas id="memoryStats" class="chart chart-line" chart-data="memoryStatsData"
+          chart-labels="memoryStatsLabels" chart-legend="true" chart-series="memoryStatsSeries" >
+  </canvas>
+  <h3 class="modal-title">Network Stats</h3>
+  <canvas id="networkStats" class="chart chart-line" chart-data="networkData"
+          chart-labels="networkLabels" chart-legend="true" chart-series="networkSeries">
+  </canvas>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="dismiss()">Dismiss</button>
+</div>

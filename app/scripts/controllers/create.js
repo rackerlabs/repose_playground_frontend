@@ -8,7 +8,7 @@
  * Controller of the reposePlaygroundApp
  */
 angular.module('reposePlaygroundApp')
-  .controller('CreateCtrl', function ($scope, $log, ReposeService, $filter) {
+  .controller('CreateCtrl', function ($scope, $log, $filter) {
     $log.info('In Create Ctrl');
     $scope.ui = {
       waitingForLoad: false,
@@ -67,7 +67,7 @@ angular.module('reposePlaygroundApp')
     $scope.isUploading = true;
     $scope.progressPercentage = 0;
     Upload.upload({
-        url: 'app/repose/' + newInstance.version + '/upload',
+        url: 'app/configuration/' + newInstance.version + '/upload',
         data: {file: file}
     }).then(function (resp) {
         $scope.status = resp.data.message;

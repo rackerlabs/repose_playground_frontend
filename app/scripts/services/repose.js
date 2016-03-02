@@ -201,52 +201,24 @@ angular.module('reposePlaygroundApp')
      return deferred.promise;
    },
 
+    showStats: function(id, callback) {
+     $log.info('In ReposeService.showStats().  Try to show stats for: ', id);
+     var cb = callback || angular.noop;
+     var deferred = $q.defer();
 
-     /**
-      * View repose configurations in xml
-      *
-      * @param {Object} reposeId - reposeId
-      * @param {Function} callback - optional
-      * @return {Promise}
-      */
-     viewConfiguration: function(reposeId, callback) {
-       $log.info('In ReposeService.viewConfiguration().  Try to get configs for: ', reposeId);
-       var cb = callback || angular.noop;
-       var deferred = $q.defer();
+     $http.get('/app/repose/stats/' + id).
+     success(function(resp){
+       $log.info('ReposeService.showStats()::Got back a "successful" response with: ', resp);
+       deferred.resolve(resp)
+       return cb();
+     }).
+     error(function(err) {
+      $log.error('ReposeService.showStats()::Got back a "failed" response with: ', err);
+      deferred.reject(err);
+      return cb(err);
+    }.bind(this));
 
-       $http.get('/app/repose/' + reposeId + '/configurations').
-       success(function(resp){
-         $log.info('ReposeService.viewConfiguration()::Got back a "successful" response with: ', resp);
-         deferred.resolve(resp)
-         return cb();
-       }).
-       error(function(err) {
-        $log.error('ReposeService.viewConfiguration()::Got back a "failed" response with: ', err);
-        deferred.reject(err);
-        return cb(err);
-      }.bind(this));
-
-       return deferred.promise;
-     },
-
-    makeRequest: function(id, data, callback) {
-       $log.info('In ReposeService.makeRequest().  Try to insert for: ', id, data);
-       var cb = callback || angular.noop;
-       var deferred = $q.defer();
-
-       $http.post('/app/repose/test/' + id, data).
-       success(function(resp){
-         $log.info('ReposeService.makeRequest()::Got back a "successful" response with: ', resp);
-         deferred.resolve(resp)
-         return cb();
-       }).
-       error(function(err) {
-        $log.error('ReposeService.makeRequest()::Got back a "failed" response with: ', err);
-        deferred.reject(err);
-        return cb(err);
-      }.bind(this));
-
-       return deferred.promise;
-     }
+     return deferred.promise;
+   }
     };
   });
