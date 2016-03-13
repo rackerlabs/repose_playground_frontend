@@ -1,56 +1,128 @@
-/*'use strict';
+'use strict';
 
-describe('Controller: LoginCtrl', function () {
+describe('Controller: LoginCtrl - init', function () {
 
   // load the controller's module
-  beforeEach(function(){
-      module(function($provide){
-      $provide.factory('Auth', [
-          '$location', 'Auth', 'User', '$rootScope', '$http', '$q', '$log', 
-          function($location, Auth, User, $rootScope, $http, $q, $log){
-              function getInstances(data){
-                return [
-                  {
-                      "id": 1,
-                      "name": "test1"
-                  }  
-                ];
-            }
-
-            return {
-                getInstances: getInstances
-            };
-      }]);
-    });
+  beforeEach(function() {
       module('reposePlaygroundApp');
   });
 
-  var LoginCtrl,
-    scope,
-    location,
-    Auth,
-    log;
+  var $controller,
+    $scope,
+    log,
+    AuthMock = {},
+    $location,
+    LoginCtrl,
+    form;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function (_$controller_, _$rootScope_, _Auth_, _$location_, _$log_) {
-    scope = _$rootScope_.$new();
+  beforeEach(inject(function (_$controller_, $rootScope, _$log_, _$location_, $q) {
+    $scope = $rootScope.$new();
+    $controller = _$controller_; 
     log = _$log_;
-    location = _$location_;
-    Auth = _Auth_;
-    LoginCtrl = _$controller_('LoginCtrl', {
-      $scope: scope,
-      Auth: _Auth_,
-      $location: location,
+    $location = _$location_;
+
+    AuthMock.login = function(form) {
+        var deferred = $q.defer();
+        deferred.resolve("");
+        return deferred.promise;
+    }
+
+    spyOn(AuthMock, "login").and.callThrough();
+
+    LoginCtrl = $controller('LoginCtrl', {
+      $scope: $scope,
+      Auth: AuthMock,
+      $location: $location,
       $log: log
-      // place here mocked dependencies
     });
   }));
 
-  it('should validate Login init', function () {
-    expect(LoginCtrl).toBeDefined();
-    console.log('Test this out', LoginCtrl, scope);
-    expect(scope.user).toBeDefined();
-    expect(scope.errors).toBeDefined();
+  it('should validate login init', function () {
+      expect($scope.user).toEqual({});
+      expect($scope.errors).toEqual({});
+  });
+
+  it('valid login should succeed', function () {
+      form = {
+          $valid: true
+      }
+      $scope.login(form);
+      $scope.$apply();
+      expect($location.$$path).toBe('/main');
+      expect($scope.user).toEqual({});
+      expect($scope.errors).toEqual({});
+      expect(AuthMock.login).toHaveBeenCalled();  
+      expect(AuthMock.login.calls.count()).toEqual(1);
+  });
+
+  it('invalid login should fail', function () {
+      form = {
+          $valid: false
+      }
+      $scope.login(form);
+      $scope.$apply();
+      expect($location.$$path).toBe('/');
+      expect($scope.user).toEqual({});
+      expect($scope.errors).toEqual({});
+      expect(AuthMock.login.calls.count()).toEqual(0);
   });
 });
-*/
+
+describe('Controller: LoginCtrl - init login fail', function () {
+
+  // load the controller's module
+  beforeEach(function() {
+      module('reposePlaygroundApp');
+  });
+
+  var $controller,
+    $scope,
+    log,
+    AuthMock = {},
+    $location,
+    LoginCtrl,
+    form;
+
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function (_$controller_, $rootScope, _$log_, _$location_, $q) {
+    $scope = $rootScope.$new();
+    $controller = _$controller_; 
+    log = _$log_;
+    $location = _$location_;
+
+    AuthMock.login = function(form) {
+        var deferred = $q.defer();
+        deferred.reject({
+            message: 'failed message',
+            'user': {
+                message: 'failed'
+            },
+            'another': 'something else'
+        });
+        return deferred.promise;
+    }
+
+    spyOn(AuthMock, "login").and.callThrough();
+
+    LoginCtrl = $controller('LoginCtrl', {
+      $scope: $scope,
+      Auth: AuthMock,
+      $location: $location,
+      $log: log
+    });
+  }));
+
+  it('valid login fails', function () {
+      form = {
+          $valid: true
+      }
+      $scope.login(form);
+      $scope.$apply();
+      expect($location.$$path).toBe('/');
+      expect($scope.user).toEqual({});
+      expect($scope.errors).toEqual({ other: [ 'message => failed message', 'user => failed', 'another => something else' ] });
+      expect(AuthMock.login).toHaveBeenCalled();  
+      expect(AuthMock.login.calls.count()).toEqual(1);
+  });
+});
