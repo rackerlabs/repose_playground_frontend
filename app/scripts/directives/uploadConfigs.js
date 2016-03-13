@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('uploadConfigs', function ($log, $compile, Upload, $modal, $location) {
+  .directive('uploadConfigs', function ($log, $compile, $modal, $location) {
     return {
       templateUrl: 'views/uploadConfigs.html',
       restrict: 'E',

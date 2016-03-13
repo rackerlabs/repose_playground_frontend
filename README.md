@@ -1,7 +1,7 @@
 # repose-playground
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.12.1.
+[![Build Status](https://travis-ci.org/rackerlabs/repose_playground_frontend.svg)](https://travis-ci.org/rackerlabs/repose_playground_frontend)
+[![codecov.io](http://codecov.io/github/rackerlabs/repose_playground_frontend/coverage.svg?branch=master)](http://codecov.io/github/rackerlabs/repose_playground_frontend?branch=master)
 
 ## Build & development
 

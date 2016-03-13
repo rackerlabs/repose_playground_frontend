@@ -15,7 +15,6 @@ angular.module('reposePlaygroundApp')
       reposeFetchError: false,
       isChildState: false
     };
-
     ReposeService.getInstances({
       uiStates: $scope.ui
     })
@@ -127,7 +126,7 @@ angular.module('reposePlaygroundApp')
           $scope.networkData.txPacketsDropped.push(data.network.txPacketsDropped);
           $scope.networkData.txPacketsErrored.push(data.network.txPacketsErrored);
         }
-        
+
         $timeout(poller, 5000);
       })
       .catch(function(err){
@@ -157,7 +156,7 @@ angular.module('reposePlaygroundApp')
 
     ConfigurationService.viewConfiguration(repose.id)
     .then(function(data){
-      $scope.configs = data.configs;
+      $scope.configs = data;
       $scope.configsLoading = false;
       $scope.configsLoaded = true;
       $scope.configsErrored = false;
