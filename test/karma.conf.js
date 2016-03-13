@@ -22,7 +22,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'client/bower_components/jquery/jquery.js',
+      'client/bower_components/jquery/dist/jquery.js',
       'client/bower_components/angular/angular.js',
       'client/bower_components/bootstrap/dist/js/bootstrap.js',
       'client/bower_components/angular-animate/angular-animate.js',
@@ -34,6 +34,7 @@ module.exports = function(config) {
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'client/bower_components/angular-touch/angular-touch.js',
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'client/bower_components/jasmine/lib/jasmine-core/jasmine.js',
       'client/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'client/bower_components/canon/dist/canon.js',
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -57,7 +58,16 @@ module.exports = function(config) {
       "test/mock/**/*.js",
       "test/spec/**/*.js"
     ],
+    
+    reporters: ['progress', 'coverage'],
 
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'app/scripts/**/*.js': ['coverage']
+    },
+    
     // list of files / patterns to exclude
     exclude: [
     ],
@@ -80,6 +90,7 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       "karma-phantomjs-launcher",
+      "karma-coverage",
       "karma-jasmine"
     ],
 
@@ -93,6 +104,14 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [
+        // reporters not supporting the `file` property
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' },
+      ]
+    }
     // Uncomment the following lines if you are using grunt's server to run the tests
     // proxies: {
     //   '/': 'http://localhost:9000/'

@@ -2,6 +2,7 @@
   "name": "reposeplayground",
   "private": true,
   "devDependencies": {
+    "after": "^0.8.1",
     "cdnjs-cdn-data": "^0.1.2",
     "google-cdn": "^1.0.0",
     "grunt": "^0.4.5",
@@ -28,19 +29,28 @@
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "jasmine-core": "^2.4.1",
+    "jasmine-jquery": "^2.1.1",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
+    "karma": "^0.13.22",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
+    "phantomjs": "^2.1.3",
+    "phantomjs-bin": "^1.0.1",
     "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "codecov": "cat coverage/*/lcov.info | codecov"
   },
   "dependencies": {
-    "connect-modrewrite": "^0.8.2"
+    "codecov": "^1.0.1",
+    "connect-modrewrite": "^0.8.2",
+    "karma-coverage": "^0.5.5",
+    "phantomjs-prebuilt": "^2.1.5"
   }
 }

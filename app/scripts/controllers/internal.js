@@ -15,7 +15,6 @@ angular.module('reposePlaygroundApp')
       reposeFetchError: false,
       isChildState: false
     };
-
     ReposeService.getInstances({
       uiStates: $scope.ui
     })
