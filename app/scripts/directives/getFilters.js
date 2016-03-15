@@ -6,9 +6,10 @@ angular.module('reposePlaygroundApp')
       templateUrl: 'views/getReposeFilters.html',
       restrict: 'E',
       link: function (scope, element, attrs) {
-        console.log('in get repose filters directive', scope, element, attrs);
+        $log.log('in get repose filters directive', scope, element, attrs);
 
         scope.getFilters = function() {
+            console.log('test', scope.newInstance);
           scope.ui.versionSelected = true;
           var versionId = scope.newInstance.version;
           $log.info(versionId);

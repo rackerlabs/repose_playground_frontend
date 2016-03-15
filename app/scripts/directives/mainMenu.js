@@ -6,9 +6,9 @@ angular.module('reposePlaygroundApp')
       templateUrl: 'views/mainMenu.html',
       restrict: 'E',
       link: function (scope, element, attrs) {
-        $log.error(scope, element, attrs);
+        $log.info(scope, element, attrs);
         scope.logout = function() {
-          $log.error('logging out')
+          $log.info('logging out');
           Auth.logout();
           $location.path('/');
         }

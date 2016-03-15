@@ -23,10 +23,6 @@ angular.module('reposePlaygroundApp')
           }
         }
 
-        function cleanErrors(){
-          scope.ui.errorMessage = "";
-        }
-
       }
     };
   });

@@ -54,7 +54,7 @@ module.exports = function(config) {
       'client/bower_components/angular-chart.js/dist/angular-chart.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
-      "app/scripts/**/*.js",
+      "app/scripts/**/!(slider).js",
       "test/mock/**/*.js",
       "test/spec/**/*.js"
     ],

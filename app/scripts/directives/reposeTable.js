@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('reposeTable', function ($log, $compile, $rootScope) {
+  .directive('reposeTable', function ($log, $compile) {
     return {
       templateUrl: 'views/reposeTable.html',
       restrict: 'E',
@@ -9,11 +9,17 @@ angular.module('reposePlaygroundApp')
         data: '@'
       },
       link: function (scope, element, attrs) {
-        $log.log('in repose table directive', scope, element, attrs, $rootScope);
+        $log.log('in repose table directive', scope, element, attrs);
         scope.prefix = attrs.prefix;
         scope.filterName = attrs.filterName;
-        scope.fields = JSON.parse(scope.data);
-        //scopeWithRepose.repose.list=[];
+        scope.fields = [];
+        
+        try {
+            scope.fields = JSON.parse(scope.data);
+        }catch(e){
+            $log.error('invalid data');
+        }
+        
         scope.list = []
 
         var initial_element = {};
@@ -26,16 +32,16 @@ angular.module('reposePlaygroundApp')
             'xsd-type': scope.fields[field]['xsd-type'],
             'filter-name': attrs.filterName
           };
-          console.log('repose table test', scope.fields[field], initial_element);
+          $log.log('repose table test', scope.fields[field], initial_element);
         }
         scope.list.push(initial_element);
 
-        scope.addOneToList = function(data, data2) {
-          $log.info('addOneToList', data, data2)
+        scope.addOneToList = function(data) {
+          $log.info('addOneToList', data)
           var newData = data[0];
           delete newData.$$hashKey
           data.push(newData)
-          $log.info('addOneToList', data, data2)
+          $log.info('addOneToList', data)
         }
 
         scope.removeOneFromList = function(list, index) {
