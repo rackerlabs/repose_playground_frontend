@@ -24,10 +24,6 @@ angular.module('reposePlaygroundApp')
     $scope.newInstance = {
       selectedFilters: []
     };
-
-    function cleanErrors(){
-      $scope.ui.errorMessage = "";
-    }
   })
   .controller('ModalInstanceCtrl', function (ReposeService, $scope, $modalInstance, data, newInstance, $log, $location) {
     $log.info('inside modal instance ctrl', newInstance, data);
@@ -43,10 +39,6 @@ angular.module('reposePlaygroundApp')
       $log.error('ModalInstanceCtrl::',err);
       $scope.status = 'error';
     });
-
-    /*$scope.ok = function () {
-      $modalInstance.close($scope.status, $scope.reposeId);
-    };*/
 
     $scope.ok = function () {
       $log.info("get ok", $scope.status, $scope.reposeId)

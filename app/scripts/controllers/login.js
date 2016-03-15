@@ -37,10 +37,7 @@ angular.module('reposePlaygroundApp')
               $scope.errors.other.push(e + " => " + err[e].message)
             } else {
               $log.error('LoginCtrl::Err[e] does not have message property.  Iterate through list and add it up');
-              for(var i = 0; i < err[e].length; i ++){
-                $log.error('LoginCtrl::e will have ', err[e][i]);
-                $scope.errors.other.push(e + " => " + err[e][i]);
-              }
+              $scope.errors.other.push(e + " => " + err[e]);
             }
           }
           $log.error($scope.errors.other);

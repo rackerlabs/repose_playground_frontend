@@ -29,18 +29,18 @@ angular.module('reposePlaygroundApp')
         body: '',
         method: ''
       };
-      $scope.request.url = $("#testReposeForm").find(':input[name="url"]').val();
-      $scope.request.method = $("#testReposeForm").find(':input[name="method"]').val();
-      angular.forEach($("#testReposeForm").find(':input[name*="header_names"]'), function(el) {
+      $scope.request.url = angular.element("#testReposeForm").find(':input[name="url"]').val();
+      $scope.request.method = angular.element("#testReposeForm").find(':input[name="method"]').val();
+      angular.forEach(angular.element("#testReposeForm").find(':input[name*="header_names"]'), function(el) {
         $scope.request.headers.push({
           name: el.value,
           value: ''
         })
       });
-      angular.forEach($("#testReposeForm").find(':input[name*="header_values"]'), function(el, index) {
+      angular.forEach(angular.element("#testReposeForm").find(':input[name*="header_values"]'), function(el, index) {
         $scope.request.headers[index].value = el.value;
       });
-      $scope.request.body = $("#testReposeForm").find(':input[name="body"]').val();
+      $scope.request.body = angular.element("#testReposeForm").find(':input[name="body"]').val();
 
       TestService.makeRequest($scope.id, $scope.request)
       .then(function(result){
@@ -51,6 +51,9 @@ angular.module('reposePlaygroundApp')
         $log.info(result);
       })
       .catch(function(err){
+        $scope.requestLoading = false;
+        $scope.requestLoaded = false;
+        $scope.requestErrored = true;
         $scope.errorMessage = err;
         $log.error(err);
       });
