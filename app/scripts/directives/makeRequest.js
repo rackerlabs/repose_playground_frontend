@@ -16,23 +16,20 @@ angular.module('reposePlaygroundApp')
         ];
 
 
-        scope.addOneToList = function(data, data2) {
-          $log.info('makeRequest::addOneToList', data, data2)
-          data.push({
+        scope.addOneToList = function() {
+          $log.info('makeRequest::addOneToList')
+          scope.headers.push({
             name: '',
             value: ''
           })
-          $log.info('makeRequest::addOneToList', data, data2)
+          
+          $log.info('makeRequest::addOneToList')
         }
 
-        scope.removeOneFromList = function(list, index) {
-          $log.info('makeRequest::removeOneFromList', list, index)
-          list.splice(index, 1);
-          $log.info('makeRequest::removeOneFromList', list, index)
-        }
-
-        function cleanErrors(){
-          scope.ui.errorMessage = "";
+        scope.removeOneFromList = function(index) {
+          $log.info('makeRequest::removeOneFromList', scope.headers, index)
+          scope.headers.splice(index, 1);
+          $log.info('makeRequest::removeOneFromList', scope.headers, index)
         }
 
       }

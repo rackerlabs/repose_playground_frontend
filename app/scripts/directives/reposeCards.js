@@ -1,17 +1,11 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('reposeCards', function (Auth, ReposeService, $location, $log, $modal) {
+  .directive('reposeCards', function (ReposeService, $location, $log, $modal) {
     return {
       templateUrl: 'views/reposeCards.html',
       restrict: 'E',
       link: function (scope, element, attrs) {
-        console.log('reposeCards:',scope, element, attrs);
-
-        scope.logout = function() {
-          Auth.logout();
-          $location.path('/');
-        }
 
         scope.viewConfiguration = function(repose) {
           $log.info('view configuration: ', repose);
@@ -45,7 +39,6 @@ angular.module('reposePlaygroundApp')
           $log.info('stop called: ', repose);
           ReposeService.stopInstance(repose.id)
           .then(function(data){
-            console.log('reposeCards:',scope.reposes);
             scope.ui.waitingForLoad = false;
             repose.status = "Stopped";
             repose.message = "";
@@ -63,7 +56,6 @@ angular.module('reposePlaygroundApp')
           $log.info('start called: ', repose);
           ReposeService.startInstance(repose.id)
           .then(function(data){
-            console.log('reposeCards:',scope.reposes);
             scope.ui.waitingForLoad = false;
             repose.status = "Running";
             repose.message = "";

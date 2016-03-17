@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reposePlaygroundApp')
-  .directive('uploadConfigs', function ($log, $compile, $modal, $location) {
+  .directive('uploadConfigs', function ($log, $compile, $modal) {
     return {
       templateUrl: 'views/uploadConfigs.html',
       restrict: 'E',
@@ -35,11 +35,6 @@ angular.module('reposePlaygroundApp')
           });
           $log.info('upload file', file)
 
-        }
-
-
-        function cleanErrors(){
-          scope.ui.errorMessage = "";
         }
       }
     };
