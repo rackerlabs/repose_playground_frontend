@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name reposePlaygroundApp.ReposeService
+ * @name reposePlaygroundApp.TestService
  * @description
  * # Auth
  * Service in the reposePlaygroundApp.
  */
 angular.module('reposePlaygroundApp')
-  .factory('TestService', function ReposeService($location, Auth, User, $rootScope, $http, $q, $log) {
+  .factory('TestService', function TestService($location, Auth, User, $rootScope, $http, $q, $log) {
     $log.info('In TestService factory');
 
     var currentUser = {};
@@ -16,6 +16,8 @@ angular.module('reposePlaygroundApp')
     if(Auth.getToken()) {
       $log.info('TestService::We have a token', Auth.getToken());
       currentUser = User.get();
+    } else {
+        Auth.logout();
     }
 
     return {

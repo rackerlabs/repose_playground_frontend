@@ -100,6 +100,7 @@ describe('Directive: reposeItem - init success', function () {
     });
 
     it('should init with double data set', function () {
+        pending();
         $scope.data = {
             minOccurs: 0,
             maxOccurs: 1,
