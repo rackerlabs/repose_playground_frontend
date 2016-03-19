@@ -2,21 +2,22 @@
 
 /**
  * @ngdoc service
- * @name reposePlaygroundApp.ReposeService
+ * @name reposePlaygroundApp.ConfigurationService
  * @description
  * # Auth
  * Service in the reposePlaygroundApp.
  */
 angular.module('reposePlaygroundApp')
-  .factory('ConfigurationService', function ReposeService($location, Auth, User, $rootScope, $http, $q, $log) {
+  .factory('ConfigurationService', function ConfigurationService($location, Auth, User, $rootScope, $http, $q, $log) {
     $log.info('In ConfigurationService factory');
 
-    var currentUser = {};
+    /*var currentUser = {};
     $log.info('ConfigurationService::Check token in cookie store: ', Auth.getToken())
     if(Auth.getToken()) {
       $log.info('ConfigurationService::We have a token', Auth.getToken());
       currentUser = User.get();
     }
+    */
 
     return {
 
@@ -31,7 +32,7 @@ angular.module('reposePlaygroundApp')
        $log.info('In ConfigurationService.viewConfiguration().  Try to get configs for: ', reposeId);
        var cb = callback || angular.noop;
        var deferred = $q.defer();
-
+       
        $http.get('/app/configuration/' + reposeId + '/configurations').
        success(function(resp){
          $log.info('ConfigurationService.viewConfiguration()::Got back a "successful" response with: ', resp);

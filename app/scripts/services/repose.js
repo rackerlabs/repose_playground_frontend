@@ -16,6 +16,8 @@ angular.module('reposePlaygroundApp')
     if(Auth.getToken()) {
       $log.info('ReposeService::We have a token', Auth.getToken());
       currentUser = User.get();
+    } else {
+        Auth.logout();
     }
 
     return {
@@ -31,12 +33,6 @@ angular.module('reposePlaygroundApp')
         $log.info('In ReposeService.getInstances().  Try to retrieve for: ', currentUser);
         var cb = callback || angular.noop;
         var deferred = $q.defer();
-
-        if(currentUser === undefined) {
-              this.logout();
-              deferred.reject('ReposeService.getInstances()::Not logged in');
-              return cb('ReposeService.getInstances()::Not logged in');
-        }
 
         $http.get('app/repose/list').
         success(function(data) {
