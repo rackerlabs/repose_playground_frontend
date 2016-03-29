@@ -1,0 +1,31 @@
+<div class="rs-control-group" data-ng-show="ui.BuildOwnReposeSelected">
+  <div class="rs-control-group">
+    <label class="rs-control-label">Selected Filters (in the order of execution)</label>
+    <div class="rs-control-group rs-embedded-list-table-wrapper rs-embedded-medium">
+        <table class="rs-list-table" ng-show="repose.selectedFiltersLoaded">
+            <tbody>
+                <tr data-ng-repeat="filter in repose.renderedFilters track by $index">
+                    <td class="rs-table-text">{{ $index }}</td>
+                    <td class="rs-table-text">{{ filter.name }}</td>
+                    <td class="rs-table-text">
+                        <button class="rs-btn rs-btn-primary" type="button"  data-ng-click="getComponent(filter)" ng-hide="filter.data | isEmpty">Configure</button>
+                    </td>
+                    <td class="rs-table-text">
+                        <button class="rs-btn rs-btn-primary" type="button"  data-ng-click="removeFromComponentList($index)">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rs-table-overlay rs-table-overlay-loading" ng-show="repose.selectedFiltersLoading">
+      <div class="rs-table-overlay-content">
+        <div class="rs-table-overlay-message">Loading&hellip;</div>
+      </div>
+    </div>
+    <div class="rs-table-overlay rs-table-overlay-error" ng-show="repose.selectedFiltersErrored">
+      <div class="rs-table-overlay-content">
+        <div class="rs-table-overlay-message"><i class="rs-icon-error-indicator"></i>{{ repose.errorMessage }}</div>
+      </div>
+    </div>
+  </div>
+</div>

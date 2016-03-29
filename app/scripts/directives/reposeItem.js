@@ -8,11 +8,8 @@ angular.module('reposePlaygroundApp')
         return {
             templateUrl: 'views/reposeItem.html',
             restrict: 'E',
-            scope: {
-                data: '@'
-            },
             link: function (scope, element, attrs) {
-                $log.log('in repose item directive', scope, element, attrs);
+                $log.error('in repose item directive', scope.filter, element, attrs);
                 if (scope.data !== undefined) {
                     var filterData = null;
                     try {

@@ -1,12 +1,30 @@
 <div class="rs-control-group" data-ng-show="ui.BuildOwnReposeSelected">
   <div class="rs-control-group">
     <label class="rs-control-label">Filters</label>
-    <div class="rs-controls">
-      <label class="rs-checkbox" data-ng-repeat="filter in repose.availableFilters">
-        <input type="checkbox" checklist-model="newInstance.selectedFilters" checklist-value="filter">
-        {{ filter }}
-      </label>
-      <button class="rs-btn rs-btn-primary" type="button"  data-ng-click="getComponent()">Load filters</button>
+    <div class="rs-control-group rs-embedded-list-table-wrapper rs-embedded-medium">
+        <table class="rs-list-table" ng-show="repose.availableFiltersLoaded">
+            <tbody>
+                <tr data-ng-repeat="filter in repose.availableFilters">
+                    <td class="rs-table-text">{{ filter }}</td>
+                    <td class="rs-table-text">
+                        <button class="rs-btn rs-btn-primary" type="button" data-ng-click="addToComponentList(filter)">Add</button>
+                        <!--
+                        <button class="rs-btn rs-btn-primary" type="button"  data-ng-click="getComponent(filter)" ng-show="filter.hasConfiguration">Configure</button>
+                        -->                    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rs-table-overlay rs-table-overlay-loading" ng-show="repose.availableFiltersLoading">
+      <div class="rs-table-overlay-content">
+        <div class="rs-table-overlay-message">Loading&hellip;</div>
+      </div>
+    </div>
+    <div class="rs-table-overlay rs-table-overlay-error" ng-show="repose.availableFiltersErrored">
+      <div class="rs-table-overlay-content">
+        <div class="rs-table-overlay-message"><i class="rs-icon-error-indicator"></i>{{ repose.errorMessage }}</div>
+      </div>
     </div>
   </div>
 </div>

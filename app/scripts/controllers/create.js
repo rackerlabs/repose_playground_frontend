@@ -19,7 +19,8 @@ angular.module('reposePlaygroundApp')
     };
     $scope.repose = {
       availableVersions: [],
-      availableFilters: []
+      availableFilters: [],
+      renderedFilters: []
     };
     $scope.newInstance = {
       selectedFilters: []
