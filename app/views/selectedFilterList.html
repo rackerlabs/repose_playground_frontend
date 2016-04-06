@@ -11,6 +11,9 @@
                         <button class="rs-btn rs-btn-primary" type="button"  data-ng-click="getComponent(filter)" ng-hide="filter.data | isEmpty">Configure</button>
                     </td>
                     <td class="rs-table-text">
+                        <span class="rs-help-block" ng-hide="filter.specified_data | isEmpty">Configured</span>
+                    </td>
+                    <td class="rs-table-text">
                         <button class="rs-btn rs-btn-primary" type="button"  data-ng-click="removeFromComponentList($index)">Remove</button>
                     </td>
                 </tr>

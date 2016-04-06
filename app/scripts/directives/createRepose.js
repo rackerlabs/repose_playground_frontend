@@ -49,7 +49,7 @@ angular.module('reposePlaygroundApp')
                     scope.repose.selectedFiltersLoading = false;
                     scope.repose.selectedFiltersErrored = true;
 
-                });            
+                });   
         }
                 
         scope.removeFromComponentList = function(filter){

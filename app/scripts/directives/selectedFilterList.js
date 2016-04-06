@@ -26,6 +26,7 @@ angular.module('reposePlaygroundApp')
             
             componentInstance.result.then(
                 function(result){
+                    filter.specified_data = result;
                     $log.error('component instance result', result);
                 },
                 function(error){

@@ -6,19 +6,13 @@ angular.module('reposePlaygroundApp')
       templateUrl: 'views/reposeTable.html',
       restrict: 'E',
       scope: {
-        data: '@'
+        data: '='
       },
       link: function (scope, element, attrs) {
-        $log.log('in repose table directive', scope, element, attrs);
+        $log.log('reposeTable::in repose table directive', scope.data, element, attrs);
         scope.prefix = attrs.prefix;
         scope.filterName = attrs.filterName;
-        scope.fields = [];
-        
-        try {
-            scope.fields = JSON.parse(scope.data);
-        }catch(e){
-            $log.error('invalid data');
-        }
+        scope.fields = scope.data;
         
         scope.list = []
 

@@ -8,7 +8,7 @@
  * Controller of the reposePlaygroundApp
  */
 angular.module('reposePlaygroundApp')
-  .controller('CreateCtrl', function ($scope, $log, $filter) {
+  .controller('CreateCtrl', function ($scope, $log, $modal) {
     $log.info('In Create Ctrl');
     $scope.ui = {
       waitingForLoad: false,
@@ -25,6 +25,26 @@ angular.module('reposePlaygroundApp')
     $scope.newInstance = {
       selectedFilters: []
     };
+    
+    $scope.createInstance = function() {
+        $log.error('create instance', $scope.repose.renderedFilters);
+        $modal.open({
+            templateUrl: '/views/create_file_modal.html',
+            backdrop: 'static',
+            controller: 'ModalInstanceCtrl',
+            resolve: {
+                data: function () {
+                    return $scope.repose.renderedFilters;
+                },
+                newInstance: function () {
+                    return $scope.newInstance;
+                },
+                isUploading: function () {
+                    return false;
+                }
+            }
+        });
+    }
   })
   .controller('ModalInstanceCtrl', function (ReposeService, $scope, $modalInstance, data, newInstance, $log, $location) {
     $log.info('inside modal instance ctrl', newInstance, data);
